@@ -1,0 +1,39 @@
+version: '2'
+
+# Define the services/containers to be run
+services:
+
+  database: # name of the service
+    container_name: "database"
+    image: mongo # specify image to build container from
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  phones-test: #name of your service
+    build:
+      context: ./phones
+      dockerfile: test.Dockerfile
+    links:
+      - database # link this service to the database service
+    volumes:
+      - ./phones:/phones-test
+    environment:
+      - DEBUG=1
+      - PORT=3001
+      - ENV=development
+    depends_on:
+      - database
+
+  orders-test: #name of your service
+    build:
+      context: ./orders
+      dockerfile: test.Dockerfile
+    links:
+      - database # link this service to the database service
+    volumes:
+      - ./orders:/orders-test
+    environment:
+      - DEBUG=1
+      - PORT=3002
+      - ENV=development
+    depends_on:
+      - database

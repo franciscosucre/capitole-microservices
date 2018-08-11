@@ -29,6 +29,5 @@ mongoose.connect(uri, mongooseConf.options);
 
 
 app.use('/', indexRouter);
-app.use('/models', phoneModelRouter);
 
 module.exports = app;

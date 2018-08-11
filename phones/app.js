@@ -6,7 +6,6 @@ var logger = require('morgan'),
     mongooseConf = require('./config/mongoose');
 
 var indexRouter = require('./routes/index');
-var phoneModelRouter = require('./routes/models');
 
 var app = express();
 

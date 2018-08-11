@@ -6,7 +6,9 @@ services:
   database: # name of the service
     container_name: "database"
     image: mongo # specify image to build container from
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    command: mongod --smallfiles --logpath=/dev/null
+    ports:
+      - "27018:27017" #specify ports forwarding
 
   phones: #name of your service
     container_name: "phones"
@@ -16,7 +18,7 @@ services:
     links:
       - database # link this service to the database service
     volumes:
-      - ./phones:/phones
+      - ./phones:/usr/src/phones
     environment:
       - DEBUG=1
       - PORT=3001
@@ -31,12 +33,13 @@ services:
       - "3002:3002" #specify ports forwarding
     links:
       - database # link this service to the database service
+      - phones
     volumes:
-      - ./orders:/orders
+      - ./orders:/usr/src/orders
     environment:
       - DEBUG=1
       - PORT=3002
       - ENV=production
     depends_on:
-      - phones
       - database
+      - phones

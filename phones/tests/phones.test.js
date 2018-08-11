@@ -5,40 +5,13 @@ const path = require('path');
 //Require the dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
-const server = require('../app');
-const Phone = require('../models/phones').model;
 const expect = require('chai').expect;
-
+const server = "localhost:3001"
 
 chai.use(chaiHttp);
 
 //Our parent block
 describe('Phones', () => {
-
-    before(async function () {
-        try {
-            return await Phone.remove({});
-        } catch (error) {
-            console.log(error)
-        }
-
-    });
-
-    after(async function () {
-        // runs after all tests in this block
-        return await Phone.remove({});
-    });
-
-    beforeEach(async function () {
-        // runs before each test in this block
-        return await Phone.remove({});
-    });
-
-    afterEach(async function () {
-        // runs after each test in this block
-        return await Phone.remove({});
-    });
-
     /*
      * Test the /GET route
      */
@@ -46,7 +19,6 @@ describe('Phones', () => {
         it('it should GET 0 phones', async function () {
             const res = await chai.request(server).get('/');
             expect(res).to.have.status(200);
-            res.should.have.status(200);
             res.body.list.should.be.a('array');
             res.body.list.length.should.be.eql(0);
             res.body.count.should.be.a('number');
@@ -58,7 +30,7 @@ describe('Phones', () => {
                 'model': {
                     name: "Maven 1",
                     description: "The first Maven Model!!!",
-                    image_url: "",
+                    image_url: "sdfsdf",
                     manufacturer:"ZTE"
                 },
                 'price': 500,
@@ -68,7 +40,7 @@ describe('Phones', () => {
                 'model': {
                     name: "Maven 1",
                     description: "The first Maven Model!!!",
-                    image_url: "",
+                    image_url: "sdfsdf",
                     manufacturer:"ZTE"
                 },
                 'price': 500,
@@ -79,7 +51,6 @@ describe('Phones', () => {
 
             const res = await chai.request(server).get('/');
             expect(res).to.have.status(200);
-            res.should.have.status(200);
             res.body.list.should.be.a('array');
             res.body.list.length.should.be.eql(2);
             res.body.count.should.be.a('number');
@@ -91,7 +62,7 @@ describe('Phones', () => {
                 'model': {
                     name: "Maven 1",
                     description: "The first Maven Model!!!",
-                    image_url: "",
+                    image_url: "sdfsdf",
                     manufacturer:"ZTE"
                 },
                 'price': 500,
@@ -101,7 +72,7 @@ describe('Phones', () => {
                 'model': {
                     name: "Maven 1",
                     description: "The first Maven Model!!!",
-                    image_url: "",
+                    image_url: "sdfsdf",
                     manufacturer:"ZTE"
                 },
                 'price': 500,
@@ -110,7 +81,6 @@ describe('Phones', () => {
             await Phone.insertMany(phoneData);
             const res = await chai.request(server).get('/?sold=false');
             expect(res).to.have.status(200);
-            res.should.have.status(200);
             res.body.list.should.be.a('array');
             res.body.list.length.should.be.eql(1);
             res.body.count.should.be.a('number');

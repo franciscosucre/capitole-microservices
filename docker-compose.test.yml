@@ -6,16 +6,16 @@ services:
   database: # name of the service
     container_name: "database"
     image: mongo # specify image to build container from
-    command: mongod --smallfiles --logpath=/dev/null # --quiet
+    command: mongod --smallfiles --logpath=/dev/null 
 
-  phones-test: #name of your service
+  phones: #name of your service
     build:
       context: ./phones
       dockerfile: test.Dockerfile
     links:
       - database # link this service to the database service
     volumes:
-      - ./phones:/phones-test
+      - ./phones:/usr/src/phones
     environment:
       - DEBUG=1
       - PORT=3001
@@ -23,17 +23,19 @@ services:
     depends_on:
       - database
 
-  orders-test: #name of your service
+  orders: #name of your service
     build:
       context: ./orders
       dockerfile: test.Dockerfile
     links:
       - database # link this service to the database service
+      - phones
     volumes:
-      - ./orders:/orders-test
+      - ./orders:/usr/src/orders
     environment:
       - DEBUG=1
       - PORT=3002
       - ENV=development
     depends_on:
       - database
+      - phones

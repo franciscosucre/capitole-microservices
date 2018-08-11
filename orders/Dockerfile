@@ -9,4 +9,4 @@ COPY package-lock.json /usr/src/orders
 RUN npm install
 COPY . /usr/src/orders
 EXPOSE 3002
-CMD ["node", "./bin/www"]
+CMD ["npm", "start"]

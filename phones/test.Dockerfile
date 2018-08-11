@@ -5,4 +5,4 @@ ENV NODE_ENV development
 # 1. Get test packages; AND
 # 2. Install our test framework - mocha
 RUN npm update && npm install -g mocha
-CMD ["mocha",  "--reporter", "list","--timeout", "5000", "tests"]
+CMD ["npm", "test"]

@@ -9,4 +9,4 @@ COPY package-lock.json /usr/src/phones
 RUN npm install
 COPY . /usr/src/phones
 EXPOSE 3002
-CMD ["node", "./bin/www"]
+CMD ["npm", "start"]

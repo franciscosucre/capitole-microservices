@@ -5,13 +5,62 @@ const path = require('path');
 //Require the dev-dependencies
 let chai = require('chai');
 let chaiHttp = require('chai-http');
+const server = require('../app');
+const Phone = require('../models/phones').model;
 const expect = require('chai').expect;
-const server = "localhost:3001"
+var should = require('chai').should();
+
+const phoneData = [{
+        'model': {
+            name: "Maven 1",
+            description: "The first Maven Model!!!",
+            image_url: "dsfdsfds",
+            manufacturer: "ZTE"
+        },
+        'price': 500,
+        'sold': false,
+    },
+    {
+        'model': {
+            name: "Maven 1",
+            description: "The first Maven Model!!!",
+            image_url: "dsfdsfds",
+            manufacturer: "ZTE"
+        },
+        'price': 500,
+        'sold': true,
+    },
+]
 
 chai.use(chaiHttp);
 
 //Our parent block
 describe('Phones', () => {
+
+    before(async function () {
+        try {
+            return await Phone.remove({});
+        } catch (error) {
+            console.log(error)
+        }
+
+    });
+
+    after(async function () {
+        // runs after all tests in this block
+        return await Phone.remove({});
+    });
+
+    beforeEach(async function () {
+        // runs before each test in this block
+        return await Phone.remove({});
+    });
+
+    afterEach(async function () {
+        // runs after each test in this block
+        return await Phone.remove({});
+    });
+
     /*
      * Test the /GET route
      */
@@ -26,26 +75,7 @@ describe('Phones', () => {
         });
 
         it('it should GET all phones', async function () {
-            const phoneData = [{
-                'model': {
-                    name: "Maven 1",
-                    description: "The first Maven Model!!!",
-                    image_url: "sdfsdf",
-                    manufacturer:"ZTE"
-                },
-                'price': 500,
-                'sold': false,
-            },
-            {
-                'model': {
-                    name: "Maven 1",
-                    description: "The first Maven Model!!!",
-                    image_url: "sdfsdf",
-                    manufacturer:"ZTE"
-                },
-                'price': 500,
-                'sold': true,
-            }, ]
+
             await Phone.insertMany(phoneData);
 
 
@@ -58,26 +88,6 @@ describe('Phones', () => {
         });
 
         it('it should GET all unsold phones', async function () {
-            const phoneData = [{
-                'model': {
-                    name: "Maven 1",
-                    description: "The first Maven Model!!!",
-                    image_url: "sdfsdf",
-                    manufacturer:"ZTE"
-                },
-                'price': 500,
-                'sold': false,
-            },
-            {
-                'model': {
-                    name: "Maven 1",
-                    description: "The first Maven Model!!!",
-                    image_url: "sdfsdf",
-                    manufacturer:"ZTE"
-                },
-                'price': 500,
-                'sold': true,
-            }, ]
             await Phone.insertMany(phoneData);
             const res = await chai.request(server).get('/?sold=false');
             expect(res).to.have.status(200);

@@ -44,6 +44,8 @@ router.post('/', async function (req, res, next) {
     phones : phone_ids
   });
 
+  console.log("The order is: ", order)
+
   return res.json({
     object:order
   });

@@ -6,9 +6,9 @@ It implementes a phone selling platform.
 
 It is divided in the following microservices:
 
-1. **database:** A microservice that hosts a MongoDB server with all the differente databases used in all the other services.
-2. **phones:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to phones. Some of the functionality of this microservices are creating phones, marking a group of phones as sold and obtaining the current phone catalog. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service.
-3. **orders:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to orders. Some of the functionality of this microservices are creating orders and list orders. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service. It communicates with the phone service through HTTP requests.
+**1. database:** A microservice that hosts a MongoDB server with all the differente databases used in all the other services.
+**2. phones:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to phones. Some of the functionality of this microservices are creating phones, marking a group of phones as sold and obtaining the current phone catalog. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service.
+**3. orders:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to orders. Some of the functionality of this microservices are creating orders and list orders. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service. It communicates with the phone service through HTTP requests.
 
 **Language:** Javascript (NodeJS 8.11.3 LTS)
 

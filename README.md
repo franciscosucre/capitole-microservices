@@ -8,7 +8,7 @@ It is divided in the following microservices:
 
 1. **database:** A microservice that hosts a MongoDB server with all the differente databases used in all the other services.
 2. **phones:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to phones. Some of the functionality of this microservices are creating phones, marking a group of phones as sold and obtaining the current phone catalog. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service.
-3. **orders:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to orders. Some of the functionality of this microservices are creating orders and list orders. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service.
+3. **orders:** A microservice that hosts an REST API implemented with ExpressJS 4 with all the endpoints with logic relative to orders. Some of the functionality of this microservices are creating orders and list orders. For scabililty (following the microservice arquitecture) , it uses it's own database hosted in the database service. It communicates with the phone service through HTTP requests.
 
 **Language:** Javascript (NodeJS 8.11.3 LTS)
 
@@ -108,13 +108,15 @@ Example response:
 
 **- How would you improve the system?**
 
-1. first
-2. second
-3. third
+1. Implement an authentication system with user permissions. This would allow the owner of the product to protect confidential information. This could be implemented on a new micro service.
+2. Implement request body validation. This would allows us to reject invalid requests as soon as posible.
+3. Implement automatic database backup.
+4. Implement a logging system that would allow us to log the events of the app to the console and to log files.
+5. Implement automatic tasks to clean up the database and other type of tasks. One example could be a task that takes phones that are already sold a while ago, and store them in a different database. 
 
 
 **- How would you avoid your order API to be overflow?**
 
-1. first
-2. second
-3. third
+1. Run each of the microservices using a process manager (like pm2) that allows us to run our microservices in cluster mode.
+2. Use load balancers.
+3. Use Master-Slave replication on our database server in order to distribute more effectively read-only requests like obtaining the phone catalog.

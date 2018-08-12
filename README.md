@@ -25,11 +25,15 @@ It is divided in the following microservices:
 
 # How to run it
 
-`docker-compose up --force-recreate --build --remove-orphans`
+```bash
+docker-compose up --force-recreate --build --remove-orphans
+```
 
 # How to test it
 
-`docker-compose -f docker-compose.test.yml up --build`
+```bash
+docker-compose -f docker-compose.test.yml up --build
+```
 
 # Phone Endpoints
 
@@ -41,7 +45,7 @@ Example request:
 
 URL: /?sold=false
 
-`
+```json
 {
     "list": [{
                 "model": {
@@ -56,8 +60,7 @@ URL: /?sold=false
             }],
     "count": 1
 }
-`
-
+```
 
 # Order Endpoints
 
@@ -67,18 +70,21 @@ Creates a purchase order for a given client and a list of phone ids. It uses the
 
 Example request:
 
-`{
+```json
+{
 	"name": "Francisco",
     "surname": "Sucre",
     "email": "frank91frank@gmail.com",
     "phones": [
         "5b6ef9e9ba4488a0534e2bcc"
     ]
-}`
+}
+```
 
 Example response:
 
-`{
+```json
+{
     "object": {
         "client": {
             "name": "Francisco",
@@ -102,7 +108,8 @@ Example response:
         "total": 500,
         "__v": 0
     }
-}`
+}
+```
 
 # Additional Code Challenge Questions
 

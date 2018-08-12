@@ -1,20 +1,18 @@
-const path = require('path');
+const server = require('../app'),
+    chai = require('chai'),
+    chaiHttp = require('chai-http'),
+    expect = chai.expect,
+    should = chai.should(),
+    Phone = require('../models/phones').model;
+/* We setup chaiHttp */
+chai.use(chaiHttp);
 
-
-
-//Require the dev-dependencies
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-const server = require('../app');
-const Phone = require('../models/phones').model;
-const expect = require('chai').expect;
-var should = require('chai').should();
-
+/* We define a pre made fixture to make testing easier */
 const phoneData = [{
         'model': {
             name: "Maven 1",
             description: "The first Maven Model!!!",
-            image_url: "dsfdsfds",
+            image_url: "http://phonesdata.com/es/smartphones/zte/maven-3331/",
             manufacturer: "ZTE"
         },
         'price': 500,
@@ -24,40 +22,42 @@ const phoneData = [{
         'model': {
             name: "Maven 1",
             description: "The first Maven Model!!!",
-            image_url: "dsfdsfds",
+            image_url: "http://phonesdata.com/es/smartphones/zte/maven-3331/",
             manufacturer: "ZTE"
         },
         'price': 500,
         'sold': true,
     },
 ]
-
+/* We setup chaiHttp */
 chai.use(chaiHttp);
 
-//Our parent block
+/* We define our parent block */
 describe('Phones', () => {
 
+    /* We define our hooks */
+
+    // runs before all tests in this block
     before(async function () {
-        try {
-            return await Phone.remove({});
-        } catch (error) {
-            console.log(error)
-        }
-
+        /* We delete all the phones */
+        return await Phone.remove({});
     });
 
+    // runs after all tests in this block
     after(async function () {
-        // runs after all tests in this block
+        /* We delete all the phones */
         return await Phone.remove({});
     });
 
+    // runs before each test in this block
     beforeEach(async function () {
-        // runs before each test in this block
+        /* We delete all the phones */
         return await Phone.remove({});
     });
 
+    // runs after each test in this block
     afterEach(async function () {
-        // runs after each test in this block
+        /* We delete all the phones */
         return await Phone.remove({});
     });
 
@@ -75,10 +75,7 @@ describe('Phones', () => {
         });
 
         it('it should GET all phones', async function () {
-
             await Phone.insertMany(phoneData);
-
-
             const res = await chai.request(server).get('/');
             expect(res).to.have.status(200);
             res.body.list.should.be.a('array');

@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 
+/* We define the database schema */
 var orderSchema = new mongoose.Schema({
     client: {
         name: {
@@ -49,7 +50,7 @@ var orderSchema = new mongoose.Schema({
         required: true
     },
 });
-
+/* We create the model */
 const Order = mongoose.model('Order', orderSchema);
 
 module.exports = {

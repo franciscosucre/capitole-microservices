@@ -1,19 +1,21 @@
-//Require the dev-dependencies
-const server = require('../app');
-let chai = require('chai');
-let chaiHttp = require('chai-http');
-const expect = require('chai').expect;
-var should = require("chai").should();
-const Order = require('../models/orders').model;
-
+const server = require('../app'),
+    chai = require('chai'),
+    chaiHttp = require('chai-http'),
+    expect = chai.expect,
+    should = chai.should(),
+    Order = require('../models/orders').model;
+/* We setup chaiHttp */
 chai.use(chaiHttp);
 
 
 
-//Our parent block
+/* We define our parent block */
 describe('Orders', () => {
 
+    /* We define our hooks */
+
     before(async function () {
+        // runs before all tests in this block
         return await Order.remove({});
     });
 

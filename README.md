@@ -8,7 +8,7 @@
 
 **Test Framework:** Mocha + Chai
 
-This repository holds a Backend Code Challenge for Capitole Consulting. 
+This repository holds a Backend Code Challenge for MasMovil recruitment process. 
 
 It implements a phone selling platform. 
 
